@@ -1,0 +1,48 @@
+{   
+    "input":  
+    {
+        "video_path": "videos/Person_stand.mp4"
+    },
+
+    "export":
+    {
+        "export_record_folder": "records",
+        "export_record_name": "record.avi"
+    },
+
+    "preprocess": 
+    {
+        "roi_points": [[59, 172],
+                        [91, 53],
+                        [166, 1],
+                        [228, 50],
+                        [267, 186],
+                        [279, 233],
+                        [238, 234],
+                        [211, 301],
+                        [162, 319],
+                        [121, 302],
+                        [89, 234],
+                        [55, 229]]
+    },
+    
+    "model_classification":
+    {
+        "computing_device": "cpu",
+        "model_filename": "models/yolov5m.pt",
+        "model_confidence_threshold": 0.1,
+        "model_iou_threshold": 0.45,
+        "model_agnostic": 0,
+        "model_multi_label": 0,
+        "model_max_detection": 10
+    },
+
+    "gui_prop":
+    {
+        "window_title": "Person Detection",
+        "window_geometry": "1080x400",
+        "canvas_width": 320,
+        "canvas_height": 320
+    }
+
+}

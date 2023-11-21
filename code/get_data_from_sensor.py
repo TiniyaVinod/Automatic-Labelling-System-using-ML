@@ -15,18 +15,18 @@ def acquire_data_from_rp(
     event_p2_for_sync,
     event_waiting_for_prediciton_result,
 ):
-    print("first line////////////////////////////////////////////////////////")
+   
     shared_child_pid.value = os.getpid()
 
     # send cmd to redpitaya server
     socket_object = send_cmd_to_redpitaya()
-    print("2 line////////////////////////////////////////////////////////")
+    
 
     # Variable to keep track of loop count
 
     # Waiting for the event to set
     run_while_loop = event_p1_for_sync.wait(150)
-    print("3 line////////////////////////////////////////////////////////", run_while_loop)
+    print("////////////////////////////////////////////////////////", run_while_loop)
 
     while run_while_loop:
         print(
@@ -50,7 +50,7 @@ def acquire_data_from_rp(
         if shared_prediction.value == "p":
             folder_name = "experiments/binaries/person/"
         else:
-            folder_name = "experiments/binaries/others/"
+            folder_name = "experiments/binaries/noperson/"
 
         np.save(
             f"{folder_name}{file_name}",

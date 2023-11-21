@@ -477,13 +477,11 @@ def update_frame():
             output_label = "person"
             person_count += 1
             image_name += f"person_{person_count}"
-            print("hi from person")
     else:
-         output_label = "other"
+         output_label = "noperson"
          non_person_count += 1
-         image_name += f"other_{non_person_count}"
-         print("hi from others")
-         #increase_other_count = False
+         image_name += f"noperson_{non_person_count}"
+         
 
     predictions = {
         "total_count": update_loop_count,
@@ -504,7 +502,7 @@ def update_frame():
     if "person" in image_name:
         img2.save(f"experiments/images/frames_person/{image_name}.jpg")
     else:
-        img2.save(f"experiments/images/frames_others/{image_name}.jpg")
+        img2.save(f"experiments/images/frames_noperson/{image_name}.jpg")
 
     text = f"Timestamp: {shared_time.value}, Prediction: {output_label}, Creation Date: {current_time}"
 

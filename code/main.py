@@ -499,10 +499,10 @@ def update_frame():
 
     img2 = Image.fromarray(img_array)
 
-    if "person" in image_name:
-        img2.save(f"experiments/images/frames_person/{image_name}.jpg")
-    else:
+    if "noperson" in image_name:
         img2.save(f"experiments/images/frames_noperson/{image_name}.jpg")
+    else:
+        img2.save(f"experiments/images/frames_person/{image_name}.jpg")
 
     text = f"Timestamp: {shared_time.value}, Prediction: {output_label}, Creation Date: {current_time}"
 

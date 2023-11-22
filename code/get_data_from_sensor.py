@@ -44,8 +44,8 @@ def acquire_data_from_rp(
             break
 
         # region saving the received bytes and encoding
-        #current_time = time.strftime("%Y %m %d")
-        file_name = f"{parallel_func_loop_count}_{shared_time.value}_{shared_prediction.value}_adc.npy"
+        current_time = time.strftime("%Y %m %d")
+        file_name = f"{current_time}_{parallel_func_loop_count}_{shared_time.value}_{shared_prediction.value}_adc.npy"
 
         if shared_prediction.value == "p":
             folder_name = "experiments/binaries/person/"

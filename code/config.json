@@ -39,7 +39,7 @@
 
     "gui_prop":
     {
-        "window_title": "Person Detection",
+        "window_title": "Automatic Labelling System",
         "window_geometry": "1080x400",
         "canvas_width": 320,
         "canvas_height": 320

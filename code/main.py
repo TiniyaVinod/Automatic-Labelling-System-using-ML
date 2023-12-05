@@ -471,7 +471,7 @@ def update_frame():
     update_loop_count += 1
     print(f"inside update loop : {update_loop_count} : {shared_time.value}",event_p1_for_sync.is_set(),event_p2_for_sync.clear())
     image_name = f"{current_time}_{update_loop_count}_{timestamp}_"
-    output_result = " ".join(output_result_text[:1])
+    output_result = " ".join(output_result_text[:3])
     print(output_result, " JOINED RESULT")
     if ("PERSON" in output_result):
             output_label = "person"
@@ -652,7 +652,6 @@ if __name__ == "__main__":
         pass
 
     context = multiprocessing.get_context("spawn")
-
     event_is_updated = context.Event()
     event_is_not_stopped = context.Event()
     event_is_run_loop = context.Event()
@@ -681,8 +680,6 @@ if __name__ == "__main__":
             event_waiting_for_prediciton_result,
         ),
     )
-
     process1.start()
     window_app.mainloop()
-
     process1.join()

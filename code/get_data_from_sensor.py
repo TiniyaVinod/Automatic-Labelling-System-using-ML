@@ -15,18 +15,16 @@ def acquire_data_from_rp(
     event_p2_for_sync,
     event_waiting_for_prediciton_result,
 ):
-   
     shared_child_pid.value = os.getpid()
 
     # send cmd to redpitaya server
     socket_object = send_cmd_to_redpitaya()
-    
 
     # Variable to keep track of loop count
 
     # Waiting for the event to set
-    run_while_loop = event_p1_for_sync.wait(150)
-    print("////////////////////////////////////////////////////////", run_while_loop)
+    run_while_loop = event_p1_for_sync.wait(15)
+    a = run_while_loop
 
     while run_while_loop:
         print(
@@ -36,25 +34,30 @@ def acquire_data_from_rp(
         parallel_func_loop_count += 1
         packet = socket_object.recv(buffer_size)
 
-        print("Waiting for prediction to complete ")
+        print("Waiting for prediction to complete from US ")
         if event_waiting_for_prediciton_result.wait(15):
             event_waiting_for_prediciton_result.clear()
+            #print("Event Prediction wait for 15 sec and is cleared in US")
             print("Waiting Done.!!!")
         else:
             break
 
         # region saving the received bytes and encoding
         current_time = time.strftime("%Y %m %d")
-        file_name = f"{current_time}_{parallel_func_loop_count}_{shared_time.value}_{shared_prediction.value}_adc.npy"
+        file_name = f"{current_time}_{parallel_func_loop_count}_{shared_time.value}_{shared_prediction.value}_adc.csv"
 
         if shared_prediction.value == "p":
             folder_name = "experiments/binaries/person/"
         else:
             folder_name = "experiments/binaries/noperson/"
-
-        np.save(
+       
+        # Save data to CSV
+        np.savetxt(
             f"{folder_name}{file_name}",
-            packet,
+            np.array(shared_array).reshape(1,-1),  # Reshape only if necessary
+            fmt="%d",  # Format specifier for integers
+            delimiter=",",  # Use comma as the delimiter
+            #comments="",  # Avoid adding comments to the header
         )
 
         for index, data in enumerate(struct.iter_unpack("@h", packet[64:])):
@@ -64,8 +67,10 @@ def acquire_data_from_rp(
 
         # for syncing
         event_p2_for_sync.set()
-        if event_p1_for_sync.wait(20):
+        print('p2 is set in US')
+        if event_p1_for_sync.wait(15):
             event_p1_for_sync.clear()
+            #print("Event P1 for sync.clear US and start while of US")
             run_while_loop = True
         else:
             print("Exiting parallel function")

@@ -209,7 +209,7 @@ def play():
     # Set Event
 
     event_waiting_for_prediciton_result.clear()
-
+    print("Event prediction for clear -image")
     # Check if it is record mode
     if rec_mode:
         # Path to write record
@@ -229,7 +229,9 @@ def play():
         gui.gui_down.disable_setting()
 
         event_p1_for_sync.set()
+        print("Event P1 for set")
         event_p2_for_sync.set()
+        print("Event P2 for set")
         print("hered...........")
         update_frame()
 
@@ -249,7 +251,9 @@ def stop():
     shared_value.value = 0
 
     event_p1_for_sync.clear()
+    print("Event P1 for sync.clear im")
     event_p2_for_sync.clear()
+    print("Event P2 for sync.clear im")
 
     if isconnect_cam == False:
         return 0
@@ -472,6 +476,7 @@ def update_frame():
     print(f"inside update loop : {update_loop_count} : {shared_time.value}",event_p1_for_sync.is_set(),event_p2_for_sync.clear())
     image_name = f"{current_time}_{update_loop_count}_{timestamp}_"
     output_result = " ".join(output_result_text[:3])
+    print("Event P1 is set and P2 for the loop")
     print(output_result, " JOINED RESULT")
     if ("PERSON" in output_result):
             output_label = "person"
@@ -526,7 +531,7 @@ def update_frame():
     # saving the prediction in shared memory
     shared_prediction.value = output_label[0]
     event_waiting_for_prediciton_result.set()
-
+    print("Event prediction is set in im and P1.sync is is set ")
     # for syncing and calling the function recursively
     event_p1_for_sync.set()
     if event_p2_for_sync.wait(15):
